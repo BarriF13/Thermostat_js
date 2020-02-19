@@ -4,7 +4,9 @@ function Thermostat() {
   this.MINIMUM_TEMPERATURE = 10;
   this.MAX_LIMIT_PSM_ON = 25;
   this.MAX_LIMIT_PSM_Off = 32;
-  this.temperature = 20;
+  this.DEFAULT_TEMPERATURE = 20;
+  this.temperature = this.DEFAULT_TEMPERATURE;
+  this.MEDIUM_ENERGY_USAGE_LIMIT = 18;
   this.powerSavingMode = true;
 }
 //object constructor = Thermostat and giving it a property of temperature--then  used the prototype keyword to bind the getCurrentTemperature function to our Thermostat
@@ -43,5 +45,14 @@ Thermostat.prototype.isMaximumTemperature = function(){
   return this.temperature === this.MAX_LIMIT_PSM_ON;
 };
 Thermostat.prototype.resetTemperature = function(){
-  this.temperature = 20;
+  this.temperature = this.DEFAULT_TEMPERATURE;
+};
+Thermostat.prototype.energyUsage = function(){
+  if (this.temperature < this.MEDIUM_ENERGY_USAGE_LIMIT){
+    return 'low-usage';
+  }
+  if (this.temperature >= this.MEDIUM_ENERGY_USAGE_LIMIT && this.temperature <= this.MAX_LIMIT_PSM_ON){
+    return 'medium-usage';
+  }
+  return 'high-usage';
 }
